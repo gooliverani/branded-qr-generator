@@ -4,3 +4,6 @@
 # Python caches
 __pycache__/
 *.py[cod]
+
+# Scratch / inspection files (zoom crops, backups, etc.)
+_*
