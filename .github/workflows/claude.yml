@@ -30,21 +30,26 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: python -m pip install "qrcode[pil]" Pillow
+
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 
-          # This is an optional setting that allows Claude to read CI results on PRs
+          # Allow Claude to read CI results on PRs
           additional_permissions: |
             actions: read
 
-          # Optional: Give a custom prompt to Claude. If this is not specified, Claude will perform the instructions specified in the comment that tagged it.
-          # prompt: 'Update the pull request description to include a summary of changes.'
-
-          # Optional: Add claude_args to customize behavior and configuration
-          # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
-          # or https://code.claude.com/docs/en/cli-reference for available options
-          # claude_args: '--allowed-tools Bash(gh pr *)'
+          # Custom instructions + allowed tools are passed via claude_args in v1.
+          claude_args: |
+            --append-system-prompt "This is a single-file Python project: generate_qr.py renders a branded QR code (qr_faros.png) from logo.png. Python and the dependencies (qrcode[pil], Pillow) are already installed in this job. Regenerate the QR code by running 'python generate_qr.py'. Configuration constants (URL, LOGO_PATH, OUT_PATH, LOGO_RATIO, AUTO_REMOVE_BG, BG_TOLERANCE) live at the top of generate_qr.py. There are no tests, linters, or build steps."
+            --allowed-tools "Bash(python:*),Bash(pip:*)"
 
