@@ -43,7 +43,8 @@ python -m venv .venv
 .venv\Scripts\python.exe generate_qr.py
 ```
 
-This writes the branded QR code to `qr_faros.png`.
+This writes the branded QR code to `qr_faros.png`. The committed example
+encodes [`https://farosplus.com`](https://farosplus.com).
 
 ## Configuration
 

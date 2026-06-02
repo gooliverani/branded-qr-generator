@@ -26,7 +26,7 @@ from qrcode.image.styles.colormasks import SolidFillColorMask
 from PIL import Image, ImageDraw, ImageChops, ImageFilter
 
 # ── Configuration ─────────────────────────────────────────────────────────────
-URL       = "https://gooliverani.github.io/_farosplus/?"
+URL       = "https://farosplus.com"
 LOGO_PATH = Path(__file__).parent / "logo.png"
 OUT_PATH  = Path(__file__).parent / "qr_faros.png"
 
